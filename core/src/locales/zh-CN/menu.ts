@@ -48,5 +48,10 @@ export default {
   'menu.editor': '图形编辑器',
   'menu.editor.flow': '流程编辑器',
   'menu.editor.mind': '脑图编辑器',
-  'menu.editor.koni': '拓扑编辑器',
+  'menu.foo': '应用foo',
+  'menu.bar': '应用bar',
+  'menu.manager': '管理',
+  'menu.manager.config': '系统配置',
+  'menu.manager.config.menu': '系统菜单',
+  'menu.manager.user': '系统用户',
 };

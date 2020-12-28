@@ -1,22 +1,20 @@
 declare namespace API {
   export type CurrentUser = {
     avatar?: string;
-    name?: string;
-    title?: string;
-    group?: string;
-    signature?: string;
-    tags?: {
-      key: string;
-      label: string;
-    }[];
-    userid?: string;
-    access?: 'user' | 'guest' | 'admin';
-    unreadCount?: number;
+    nick?: string;
+    userId?: string;
+  };
+
+  export type CurrentMenus = {
+    path: string,
+    name: string,
+    locale: string,
+    children: [CurrentMenus]
   };
 
   export type LoginStateType = {
-    status?: 'ok' | 'error';
-    type?: string;
+    accessToken?: string;
+    expiresIn?: number;
   };
 
   export type NoticeIconData = {

@@ -1,7 +1,7 @@
 import { request } from 'umi';
 
 export type LoginParamsType = {
-  username: string;
+  userName: string;
   password: string;
   mobile: string;
   captcha: string;
@@ -9,16 +9,20 @@ export type LoginParamsType = {
 };
 
 export async function fakeAccountLogin(params: LoginParamsType) {
-  return request<API.LoginStateType>('/api/login/account', {
+  return request<API.LoginStateType>('/auth/login', {
     method: 'POST',
     data: params,
   });
 }
 
+export async function updateToken() {
+  return request('/auth/updateToken');
+}
+
 export async function getFakeCaptcha(mobile: string) {
-  return request(`/api/login/captcha?mobile=${mobile}`);
+  return request(`/login/captcha?mobile=${mobile}`);
 }
 
 export async function outLogin() {
-  return request('/api/login/outLogin');
+  return request('/auth/outLogin');
 }

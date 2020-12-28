@@ -6,6 +6,7 @@ import { outLogin } from '@/services/login';
 import { stringify } from 'querystring';
 import HeaderDropdown from '../HeaderDropdown';
 import styles from './index.less';
+import { delAuthorization } from "@/utils/authorization";
 
 export type GlobalHeaderRightProps = {
   menu?: boolean;
@@ -15,13 +16,17 @@ export type GlobalHeaderRightProps = {
  * 退出登录，并且将当前的 url 保存
  */
 const loginOut = async () => {
-  await outLogin();
+  const [err] = await outLogin().then(data => [null, data] ).catch(err => [err, null]);
+  if (err) {
+    return;
+  }
+  delAuthorization();
   const { query, pathname } = history.location;
   const { redirect } = query;
   // Note: There may be security issues, please note
-  if (window.location.pathname !== '/user/login' && !redirect) {
+  if (window.location.pathname !== '/login' && !redirect) {
     history.replace({
-      pathname: '/user/login',
+      pathname: '/login',
       search: stringify({
         redirect: pathname,
       }),
@@ -68,7 +73,7 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
 
   const { currentUser } = initialState;
 
-  if (!currentUser || !currentUser.name) {
+  if (!currentUser || !currentUser.nick) {
     return loading;
   }
 
