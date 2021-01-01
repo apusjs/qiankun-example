@@ -28,6 +28,8 @@ type Window = {
     fieldsObject: GAFieldsObject | string,
   ) => void;
   reloadAuthorized: () => void;
+  __POWERED_BY_QIANKUN__: string;
+  __INJECTED_PUBLIC_PATH_BY_QIANKUN__: string;
 };
 
 declare let ga: () => void;

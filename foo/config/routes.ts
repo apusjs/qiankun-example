@@ -1,50 +1,53 @@
 ﻿export default [
   {
-    path: '/user',
+    path: '/login',
     layout: false,
     routes: [
       {
-        path: '/user',
-        routes: [
-          {
-            name: 'login',
-            path: '/user/login',
-            component: './user/login',
-          },
-        ],
+        name: 'login',
+        path: '/login',
+        component: './user/login',
       },
     ],
   },
   {
-    path: '/welcome',
-    name: 'welcome',
-    icon: 'smile',
-    component: './Welcome',
-  },
-  {
-    path: '/admin',
-    name: 'admin',
-    icon: 'crown',
-    access: 'canAdmin',
-    component: './Admin',
+    path: '/full',
+    component: '../layout/fullScreenLayout',
+    layout: false,
     routes: [
       {
-        path: '/admin/sub-page',
-        name: 'sub-page',
-        icon: 'smile',
-        component: './Welcome',
+        path: '/full/process/design',
+        name: '流程设计',
+        component: './process/design',
       },
-    ],
-  },
-  {
-    name: 'list.table-list',
-    icon: 'table',
-    path: '/list',
-    component: './ListTableList',
+      {
+        component: './404',
+      },
+    ]
   },
   {
     path: '/',
-    redirect: '/welcome',
+    component: '../layout/BaseLayout',
+    routes: [
+      {
+        path: '/',
+        redirect: '/welcome',
+      },
+      {
+        path: '/welcome',
+        name: 'welcome',
+        icon: 'smile',
+        component: './Welcome',
+      },
+      {
+        path: '/user/list',
+        name: '用户列表',
+        component: './user/list',
+      },
+      {
+        component: './404',
+      },
+    ]
   },
   {
     component: './404',

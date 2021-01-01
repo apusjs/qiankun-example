@@ -1,0 +1,243 @@
+@import '~antd/es/style/color/colorPalette.less';
+
+// color palettes
+@ui-base-blue-base: #1965ff;
+@ui-base-blue-1: color(~`colorPalette('@{ui-base-blue-6}', 1) `);
+@ui-base-blue-2: color(~`colorPalette('@{ui-base-blue-6}', 2) `);
+@ui-base-blue-3: color(~`colorPalette('@{ui-base-blue-6}', 3) `);
+@ui-base-blue-4: color(~`colorPalette('@{ui-base-blue-6}', 4) `);
+@ui-base-blue-5: color(~`colorPalette('@{ui-base-blue-6}', 5) `);
+@ui-base-blue-6: @ui-base-blue-base;
+@ui-base-blue-7: color(~`colorPalette('@{ui-base-blue-6}', 7) `);
+@ui-base-blue-8: color(~`colorPalette('@{ui-base-blue-6}', 8) `);
+@ui-base-blue-9: color(~`colorPalette('@{ui-base-blue-6}', 9) `);
+@ui-base-blue-10: color(~`colorPalette('@{ui-base-blue-6}', 10) `);
+
+@ui-base-dark-blue-base: #2d51b3;
+@ui-base-dark-blue-1: color(~`colorPalette('@{ui-base-dark-blue-6}', 1) `);
+@ui-base-dark-blue-2: color(~`colorPalette('@{ui-base-dark-blue-6}', 2) `);
+@ui-base-dark-blue-3: color(~`colorPalette('@{ui-base-dark-blue-6}', 3) `);
+@ui-base-dark-blue-4: color(~`colorPalette('@{ui-base-dark-blue-6}', 4) `);
+@ui-base-dark-blue-5: color(~`colorPalette('@{ui-base-dark-blue-6}', 5) `);
+@ui-base-dark-blue-6: @ui-base-dark-blue-base;
+@ui-base-dark-blue-7: color(~`colorPalette('@{ui-base-dark-blue-6}', 7) `);
+@ui-base-dark-blue-8: color(~`colorPalette('@{ui-base-dark-blue-6}', 8) `);
+@ui-base-dark-blue-9: color(~`colorPalette('@{ui-base-dark-blue-6}', 9) `);
+@ui-base-dark-blue-10: color(~`colorPalette('@{ui-base-dark-blue-6}', 10) `);
+
+@ui-base-purple-base: #6d29cc;
+@ui-base-purple-1: color(~`colorPalette('@{ui-base-purple-6}', 1) `);
+@ui-base-purple-2: color(~`colorPalette('@{ui-base-purple-6}', 2) `);
+@ui-base-purple-3: color(~`colorPalette('@{ui-base-purple-6}', 3) `);
+@ui-base-purple-4: color(~`colorPalette('@{ui-base-purple-6}', 4) `);
+@ui-base-purple-5: color(~`colorPalette('@{ui-base-purple-6}', 5) `);
+@ui-base-purple-6: @ui-base-purple-base;
+@ui-base-purple-7: color(~`colorPalette('@{ui-base-purple-6}', 7) `);
+@ui-base-purple-8: color(~`colorPalette('@{ui-base-purple-6}', 8) `);
+@ui-base-purple-9: color(~`colorPalette('@{ui-base-purple-6}', 9) `);
+@ui-base-purple-10: color(~`colorPalette('@{ui-base-purple-6}', 10) `);
+
+@ui-base-gold-base: #faa700;
+@ui-base-gold-1: color(~`colorPalette('@{ui-base-gold-6}', 1) `);
+@ui-base-gold-2: color(~`colorPalette('@{ui-base-gold-6}', 2) `);
+@ui-base-gold-3: color(~`colorPalette('@{ui-base-gold-6}', 3) `);
+@ui-base-gold-4: color(~`colorPalette('@{ui-base-gold-6}', 4) `);
+@ui-base-gold-5: color(~`colorPalette('@{ui-base-gold-6}', 5) `);
+@ui-base-gold-6: @ui-base-gold-base;
+@ui-base-gold-7: color(~`colorPalette('@{ui-base-gold-6}', 7) `);
+@ui-base-gold-8: color(~`colorPalette('@{ui-base-gold-6}', 8) `);
+@ui-base-gold-9: color(~`colorPalette('@{ui-base-gold-6}', 9) `);
+@ui-base-gold-10: color(~`colorPalette('@{ui-base-gold-6}', 10) `);
+
+@ui-base-green-base: #3fbd00;
+@ui-base-green-1: color(~`colorPalette('@{ui-base-green-6}', 1) `);
+@ui-base-green-2: color(~`colorPalette('@{ui-base-green-6}', 2) `);
+@ui-base-green-3: color(~`colorPalette('@{ui-base-green-6}', 3) `);
+@ui-base-green-4: color(~`colorPalette('@{ui-base-green-6}', 4) `);
+@ui-base-green-5: color(~`colorPalette('@{ui-base-green-6}', 5) `);
+@ui-base-green-6: @ui-base-green-base;
+@ui-base-green-7: color(~`colorPalette('@{ui-base-green-6}', 7) `);
+@ui-base-green-8: color(~`colorPalette('@{ui-base-green-6}', 8) `);
+@ui-base-green-9: color(~`colorPalette('@{ui-base-green-6}', 9) `);
+@ui-base-green-10: color(~`colorPalette('@{ui-base-green-6}', 10) `);
+
+@ui-base-red-base: #f22436;
+@ui-base-red-1: color(~`colorPalette('@{ui-base-red-6}', 1) `);
+@ui-base-red-2: color(~`colorPalette('@{ui-base-red-6}', 2) `);
+@ui-base-red-3: color(~`colorPalette('@{ui-base-red-6}', 3) `);
+@ui-base-red-4: color(~`colorPalette('@{ui-base-red-6}', 4) `);
+@ui-base-red-5: color(~`colorPalette('@{ui-base-red-6}', 5) `);
+@ui-base-red-6: @ui-base-red-base;
+@ui-base-red-7: color(~`colorPalette('@{ui-base-red-6}', 7) `);
+@ui-base-red-8: color(~`colorPalette('@{ui-base-red-6}', 8) `);
+@ui-base-red-9: color(~`colorPalette('@{ui-base-red-6}', 9) `);
+@ui-base-red-10: color(~`colorPalette('@{ui-base-red-6}', 10) `);
+
+@ui-base-orange-base: #f27318;
+@ui-base-orange-1: color(~`colorPalette('@{ui-base-orange-6}', 1) `);
+@ui-base-orange-2: color(~`colorPalette('@{ui-base-orange-6}', 2) `);
+@ui-base-orange-3: color(~`colorPalette('@{ui-base-orange-6}', 3) `);
+@ui-base-orange-4: color(~`colorPalette('@{ui-base-orange-6}', 4) `);
+@ui-base-orange-5: color(~`colorPalette('@{ui-base-orange-6}', 5) `);
+@ui-base-orange-6: @ui-base-orange-base;
+@ui-base-orange-7: color(~`colorPalette('@{ui-base-orange-6}', 7) `);
+@ui-base-orange-8: color(~`colorPalette('@{ui-base-orange-6}', 8) `);
+@ui-base-orange-9: color(~`colorPalette('@{ui-base-orange-6}', 9) `);
+@ui-base-orange-10: color(~`colorPalette('@{ui-base-orange-6}', 10) `);
+
+@ui-base-gray-base: #000000;
+@ui-base-gray-2: fade(@ui-base-gray-base, 2%); // fafafa
+@ui-base-gray-3: fade(@ui-base-gray-base, 4%); // f5f5f5
+@ui-base-gray-4: fade(@ui-base-gray-base, 9%); // e8e8e8
+@ui-base-gray-5: fade(@ui-base-gray-base, 15%); // d9d9d9
+@ui-base-gray-6: fade(@ui-base-gray-base, 25%); // bfbfbf
+@ui-base-gray-7: fade(@ui-base-gray-base, 45%); // 8c8c8c
+@ui-base-gray-8: fade(@ui-base-gray-base, 65%); // 595959
+@ui-base-gray-9: fade(@ui-base-gray-base, 85%); // 262626
+
+// 品牌色
+@ui-base-brand-background-color-1: @ui-base-blue-1;
+@ui-base-brand-background-color-2: @ui-base-blue-2;
+@ui-base-brand-loading-color: @ui-base-blue-4;
+@ui-base-brand-hover-color: @ui-base-blue-5;
+@ui-base-brand-normal-color: @ui-base-blue-6;
+@ui-base-brand-click-color: @ui-base-blue-7;
+
+// 功能色
+@ui-base-functional-info-color-1: @ui-base-blue-1;
+@ui-base-functional-info-color-2: @ui-base-blue-6;
+
+@ui-base-functional-success-color-1: @ui-base-green-1;
+@ui-base-functional-success-color-2: @ui-base-green-6;
+
+@ui-base-functional-warn-color-1: @ui-base-gold-1;
+@ui-base-functional-warn-color-2: @ui-base-gold-6;
+
+@ui-base-functional-error-light-color: @ui-base-red-1;
+@ui-base-functional-error-disabled-color: @ui-base-red-4;
+@ui-base-functional-error-hover-color: @ui-base-red-5;
+@ui-base-functional-error-normal-color: @ui-base-red-6;
+@ui-base-functional-error-click-color: @ui-base-red-7;
+
+@ui-base-functional-link-hover-color: @ui-base-dark-blue-5;
+@ui-base-functional-link-color: @ui-base-dark-blue-6;
+@ui-base-functional-link-click-color: @ui-base-dark-blue-7;
+
+// 中性色
+@ui-base-neutral-table-header-color: @ui-base-gray-2;
+@ui-base-neutral-background-color: @ui-base-gray-3;
+@ui-base-neutral-divider-color: @ui-base-gray-4;
+@ui-base-neutral-border-color: @ui-base-gray-5;
+@ui-base-neutral-disabled-color: @ui-base-gray-6;
+@ui-base-neutral-secondary-color: @ui-base-gray-7;
+@ui-base-neutral-primary-color: @ui-base-gray-8;
+@ui-base-neutral-tittle-color: @ui-base-gray-9;
+
+@ui-base-neutral-white-color: #ffffff;
+@ui-base-neutral-white-color-1: fade(@ui-base-neutral-white-color, 85%);
+@ui-base-neutral-white-color-2: fade(@ui-base-neutral-white-color, 65%);
+@ui-base-neutral-white-color-3: fade(@ui-base-neutral-white-color, 45%);
+@ui-base-neutral-white-color-4: fade(@ui-base-neutral-white-color, 25%);
+@ui-base-neutral-white-color-5: fade(@ui-base-neutral-white-color, 0%);
+
+@ui-base-neutral-black-color: #000000;
+@ui-base-neutral-black-mask-nav-color: fade(@ui-base-neutral-black-color, 25%);
+@ui-base-neutral-black-mask-color: fade(@ui-base-neutral-black-color, 45%);
+@ui-base-neutral-black-scrollbar-color: fade(@ui-base-neutral-black-color, 65%);
+@ui-base-neutral-black-tooltip-color: fade(@ui-base-neutral-black-color, 85%);
+
+// 特殊色 Nav
+@ui-base-special-nav-background-color: linear-gradient(180deg, #1f3359 0%, #1b2b4d 100%);
+
+// icon
+@ui-base-info-icon-background-color: @ui-base-blue-1;
+@ui-base-info-icon-normal-color: @ui-base-blue-5;
+@ui-base-info-icon-color: @ui-base-blue-6;
+
+@ui-base-success-icon-background-color: @ui-base-green-1;
+@ui-base-success-icon-normal-color: @ui-base-green-5;
+@ui-base-success-icon-color: @ui-base-green-6;
+
+@ui-base-warn-icon-background-color: @ui-base-orange-1;
+@ui-base-warn-icon-normal-color: @ui-base-orange-5;
+@ui-base-warn-icon-color: @ui-base-orange-6;
+
+@ui-base-error-icon-background-color: @ui-base-red-1;
+@ui-base-error-icon-normal-color: @ui-base-red-5;
+@ui-base-error-icon-color: @ui-base-red-6;
+
+@ui-base-purple-icon-background-color: @ui-base-purple-1;
+@ui-base-purple-icon-normal-color: @ui-base-purple-5;
+@ui-base-purple-icon-color: @ui-base-purple-6;
+
+// font
+//@ui-base-text-font-size: 12px;
+//@ui-base-font-size-default-normal: 14px;
+
+// text color
+@ui-base-text-strong-color: @ui-base-gray-9;
+@ui-base-text-normal-color: @ui-base-gray-8;
+@ui-base-text-secondary-color: @ui-base-gray-7;
+@ui-base-text-invalid-color: @ui-base-gray-6;
+@ui-base-text-info-color: @ui-base-blue-6;
+@ui-base-text-warn-color: #f28d00;
+@ui-base-text-success-color: @ui-base-green-6;
+@ui-base-text-error-color: @ui-base-red-6;
+
+// 主色
+@ui-base-text-info-hover-color: @ui-base-blue-5;
+@ui-base-text-info-color: @ui-base-blue-6;
+@ui-base-text-info-click-color: @ui-base-blue-7;
+
+// 错误
+@ui-base-text-error-hover-color: @ui-base-red-5;
+@ui-base-text-error-color: @ui-base-red-6;
+@ui-base-text-error-click-color: @ui-base-red-7;
+
+// 链接
+@ui-base-text-link-hover-color: @ui-base-dark-blue-5;
+@ui-base-text-link-color: @ui-base-dark-blue-6;
+@ui-base-text-link-click-color: @ui-base-dark-blue-7;
+
+// Corner 圆角
+@ui-base-corner-default: 2px;
+@ui-base-corner-large: 2px;
+
+// padding
+@ui-base-padding-xs: 4px;
+@ui-base-padding-s: 8px;
+@ui-base-padding-m: 16px; // default
+@ui-base-padding-l: 24px;
+
+// margin
+@ui-base-margin-xs: 4px;
+@ui-base-margin-s: 8px;
+@ui-base-margin-m: 16px; // default
+@ui-base-margin-l: 24px;
+
+// 组件尺寸
+@ui-base-component-size-xs: 16px;
+@ui-base-component-size-s: 24px;
+@ui-base-component-size-m: 32px; // default
+@ui-base-component-size-l: 40px;
+@ui-base-component-size-xl: 48px;
+@ui-base-component-size-xxl: 56px;
+
+// 阴影
+@ui-base-shadow-s-down: 0px 2px 8px 0px rgba(0, 0, 0, 0.16); // default
+@ui-base-shadow-s-up: 0px -2px 8px 0px rgba(0, 0, 0, 0.16);
+@ui-base-shadow-s-left: -2px 0px 8px 0px rgba(0, 0, 0, 0.16);
+@ui-base-shadow-s-right: 2px 0px 8px 0px rgba(0, 0, 0, 0.16);
+
+@ui-base-shadow-m-down: 0px 4px 24px 0px rgba(0, 0, 0, 0.12); // default
+@ui-base-shadow-m-up: 0px -4px 24px 0px rgba(0, 0, 0, 0.12);
+@ui-base-shadow-m-left: -4px 0px 24px 0px rgba(0, 0, 0, 0.16);
+@ui-base-shadow-m-right: 4px 0px 24px 0px rgba(0, 0, 0, 0.16);
+
+@ui-base-shadow-l-down: 0px 8px 32px 0px rgba(0, 0, 0, 0.8); // default
+@ui-base-shadow-l-up: 0px -8px 32px 0px rgba(0, 0, 0, 0.8);
+@ui-base-shadow-l-left: -8px 0px 32px 0px rgba(0, 0, 0, 0.8);
+@ui-base-shadow-l-right: 8px 0px 32px 0px rgba(0, 0, 0, 0.8);
+
+// Divider 分割线
+@ui-base-divider-border-color: @ui-base-gray-4; // E8E8E8

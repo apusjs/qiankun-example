@@ -14,6 +14,7 @@ import { useIntl, Link, history, FormattedMessage, SelectLang, useModel } from '
 import Footer from '@/components/Footer';
 import type { LoginParamsType } from '@/services/login';
 import { fakeAccountLogin, getFakeCaptcha } from '@/services/login';
+import { setAuthorization } from "@/utils/authorization";
 
 import styles from './index.less';
 
@@ -50,33 +51,30 @@ const Login: React.FC = () => {
 
   const intl = useIntl();
 
-  const fetchUserInfo = async () => {
-    const userInfo = await initialState?.fetchUserInfo?.();
-    if (userInfo) {
-      setInitialState({
-        ...initialState,
-        currentUser: userInfo,
-      });
-    }
-  };
-
   const handleSubmit = async (values: LoginParamsType) => {
     setSubmitting(true);
-    try {
-      // 登录
-      const msg = await fakeAccountLogin({ ...values, type });
-      if (msg.status === 'ok') {
-        message.success('登录成功！');
-        await fetchUserInfo();
-        goto();
-        return;
-      }
-      // 如果失败去设置用户错误信息
-      setUserLoginState(msg);
-    } catch (error) {
-      message.error('登录失败，请重试！');
+    // 登录
+    const [err, data] = await fakeAccountLogin({ ...values, type }).then(data => [null, data] ).catch(err => [err, null]);
+    // 如果失败去设置用户错误信息
+    if (err) {
+      // message.error('登录失败，请重试！');
+      setUserLoginState({});
+      setSubmitting(false);
+      return;
     }
-    setSubmitting(false);
+    if (data && initialState) {
+      setAuthorization(data);
+      message.success('登录成功！');
+      const currentUser = initialState?.fetchUserInfo();
+      const currentMenus = initialState?.fetchMenus();
+      await Promise.all([currentUser, currentMenus])
+      setInitialState({
+        ...initialState,
+        currentUser: await currentUser,
+        currentMenus: await currentMenus,
+      });
+      goto();
+    }
   };
   const { status, type: loginType } = userLoginState;
 
@@ -116,7 +114,7 @@ const Login: React.FC = () => {
               },
             }}
             onFinish={async (values) => {
-              handleSubmit(values as LoginParamsType);
+              handleSubmit(values);
             }}
           >
             <Tabs activeKey={type} onChange={setType}>
@@ -147,7 +145,7 @@ const Login: React.FC = () => {
             {type === 'account' && (
               <>
                 <ProFormText
-                  name="username"
+                  name="userName"
                   fieldProps={{
                     size: 'large',
                     prefix: <UserOutlined className={styles.prefixIcon} />,

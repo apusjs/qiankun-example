@@ -49,6 +49,11 @@
         component: './manager/menu',
       },
       {
+        path: '/foo',
+        name:"foo",
+        microApp: 'foo'
+      },
+      {
         component: './404',
       },
     ]

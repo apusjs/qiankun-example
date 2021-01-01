@@ -1,14 +1,37 @@
 import React from 'react';
 import type { Settings as LayoutSettings } from '@ant-design/pro-layout';
 import { PageLoading } from '@ant-design/pro-layout';
-import { notification } from 'antd';
 import type { RequestConfig, RunTimeLayoutConfig } from 'umi';
 import { history } from 'umi';
 import RightContent from '@/components/RightContent';
 import Footer from '@/components/Footer';
-import type { ResponseError } from 'umi-request';
 import { queryCurrent } from './services/user';
 import defaultSettings from '../config/defaultSettings';
+import {
+  errorConfig,
+  errorHandler,
+  useAuthorization,
+  useFormatResult,
+  usePath
+} from '@/utils/request';
+import { getAuthorization } from '@/utils/authorization';
+import menuIconEnum from '@/common/enums/menu-icon.enum';
+import actions, { initGlobalState } from "@/models/useGlobalState";
+import { queryMenus } from './services/menu';
+
+interface Authorization {
+  accessToken?: string;
+  expiresIn?: number;
+}
+
+const replaceLogin = (uri?: string) => {
+  history.push({
+    pathname: '/login',
+    query: {
+      redirect: uri || history.location.pathname,
+    },
+  });
+}
 
 /**
  * 获取用户信息比较慢的时候会展示一个 loading
@@ -19,34 +42,67 @@ export const initialStateConfig = {
 
 export async function getInitialState(): Promise<{
   settings?: LayoutSettings;
+  authorization?: Authorization,
   currentUser?: API.CurrentUser;
-  fetchUserInfo?: () => Promise<API.CurrentUser | undefined>;
+  currentMenus?: API.CurrentMenus | undefined;
+  fetchUserInfo: () => Promise<API.CurrentUser | undefined>;
+  fetchMenus: () => Promise<API.CurrentMenus | undefined>;
 }> {
+  actions.setActions(initGlobalState())
   const fetchUserInfo = async () => {
     try {
-      const currentUser = await queryCurrent();
-      return currentUser;
+      // eslint-disable-next-line no-underscore-dangle
+      if (window.__POWERED_BY_QIANKUN__) {
+        const { currentUser } = actions.getGlobalState(['currentUser']);
+        return currentUser;
+      }
+      const data = await queryCurrent();
+      // TODO 需要增加用户角色管理
+      data.access = 'admin'
+      return data;
     } catch (error) {
-      history.push('/user/login');
+      replaceLogin()
     }
     return undefined;
   };
+
+  const fetchMenus = async () => {
+    try {
+      // eslint-disable-next-line no-underscore-dangle
+      if (window.__POWERED_BY_QIANKUN__) {
+        return;
+      }
+      return await queryMenus();
+    } catch (error) {
+      console.error(error);
+      replaceLogin();
+    }
+    return;
+  };
   // 如果是登录页面，不执行
-  if (history.location.pathname !== '/user/login') {
-    const currentUser = await fetchUserInfo();
+  if (getAuthorization() && !(location.pathname === '/login' || location.pathname === '/error' || location.pathname === '/404')) {
+    const currentUser = fetchUserInfo()
+    const currentMenus = fetchMenus()
+
+    await Promise.all([currentUser, currentMenus])
     return {
       fetchUserInfo,
-      currentUser,
+      fetchMenus,
+      authorization: getAuthorization(),
+      currentUser: await currentUser,
+      currentMenus: await currentMenus,
       settings: defaultSettings,
     };
   }
   return {
     fetchUserInfo,
+    fetchMenus,
     settings: defaultSettings,
   };
 }
 
 export const layout: RunTimeLayoutConfig = ({ initialState }) => {
+  const { currentMenus } = initialState;
   return {
     rightContentRender: () => <RightContent />,
     disableContentMargin: false,
@@ -54,60 +110,63 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
     onPageChange: () => {
       const { location } = history;
       // 如果没有登录，重定向到 login
-      if (!initialState?.currentUser && location.pathname !== '/user/login') {
-        history.push('/user/login');
+      if (!getAuthorization() && !(location.pathname === '/login' || location.pathname === '/error' || location.pathname === '/404')) {
+        replaceLogin();
       }
     },
     menuHeaderRender: undefined,
+    menuDataRender: () => {
+      // 将服务端获取的菜单 icon 字符串映射为对应的 icon Dom
+      const mappingIcon = (menuData: any) => {
+        return menuData.map((item: any) => ({
+          ...item,
+          icon: menuIconEnum[item.icon],
+          children: item.children ? mappingIcon(item.children) : [],
+        }));
+      };
+
+      // menuData 为服务端获取的菜单数据
+      return mappingIcon(currentMenus || []);
+    },
     // 自定义 403 页面
     // unAccessible: <div>unAccessible</div>,
     ...initialState?.settings,
+    pure: !!window.__POWERED_BY_QIANKUN__,
+    menu: {
+      ...initialState?.settings?.menu,
+      loading: (!currentMenus),
+    },
   };
 };
 
-const codeMessage = {
-  200: '服务器成功返回请求的数据。',
-  201: '新建或修改数据成功。',
-  202: '一个请求已经进入后台排队（异步任务）。',
-  204: '删除数据成功。',
-  400: '发出的请求有错误，服务器没有进行新建或修改数据的操作。',
-  401: '用户没有权限（令牌、用户名、密码错误）。',
-  403: '用户得到授权，但是访问是被禁止的。',
-  404: '发出的请求针对的是不存在的记录，服务器没有进行操作。',
-  405: '请求方法不被允许。',
-  406: '请求的格式不可得。',
-  410: '请求的资源被永久删除，且不会再得到的。',
-  422: '当创建一个对象时，发生一个验证错误。',
-  500: '服务器发生错误，请检查服务器。',
-  502: '网关错误。',
-  503: '服务不可用，服务器暂时过载或维护。',
-  504: '网关超时。',
-};
-
-/**
- * 异常处理程序
- */
-const errorHandler = (error: ResponseError) => {
-  const { response } = error;
-  if (response && response.status) {
-    const errorText = codeMessage[response.status] || response.statusText;
-    const { status, url } = response;
-
-    notification.error({
-      message: `请求错误 ${status}: ${url}`,
-      description: errorText,
-    });
-  }
-
-  if (!response) {
-    notification.error({
-      description: '您的网络发生异常，无法连接服务器',
-      message: '网络异常',
-    });
-  }
-  throw error;
-};
-
 export const request: RequestConfig = {
+  requestInterceptors: [
+    usePath,
+    useAuthorization,
+  ],
+  responseInterceptors: [
+    useFormatResult,
+  ],
   errorHandler,
+  errorConfig,
+};
+
+export const qiankun = {
+  // 应用加载之前
+  async bootstrap(props: any) {
+    console.log(`bootstrap`, props)
+    if(props){
+      actions.setActions(initGlobalState())
+      actions.setGlobalState(props.initialState)
+    }
+  },
+  // 应用 render 之前触发
+  async mount(props: any) {
+    console.log("应用 render 之前触发")
+    console.log('foo mount', props);
+  },
+  // 应用卸载之后触发
+  async unmount(props: any) {
+    console.log('foo unmount', props);
+  },
 };

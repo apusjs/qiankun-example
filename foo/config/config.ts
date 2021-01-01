@@ -3,6 +3,8 @@ import { defineConfig } from 'umi';
 import defaultSettings from './defaultSettings';
 import proxy from './proxy';
 import routes from './routes';
+import theme from '../src/theme/default/variables/index';
+import * as packageConfig from'../package.json';
 
 const { REACT_APP_ENV } = process.env;
 
@@ -34,9 +36,7 @@ export default defineConfig({
   // umi routes: https://umijs.org/docs/routing
   routes,
   // Theme for antd: https://ant.design/docs/react/customize-theme-cn
-  theme: {
-    'primary-color': defaultSettings.primaryColor,
-  },
+  theme,
   esbuild: {},
   title: false,
   ignoreMomentLocale: true,
@@ -54,5 +54,9 @@ export default defineConfig({
   },
   resolve: {
     includes: ['src/components'],
+  },
+  publicPath: `/${packageConfig.name}/`,
+  qiankun: {
+    slave: {},
   },
 });

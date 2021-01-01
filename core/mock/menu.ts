@@ -13,6 +13,11 @@ export default {
           "icon": 'home',
         },
         {
+          "path": '/foo',
+          "name":"foo",
+          "icon": 'smile',
+        },
+        {
           "name": "manager",
           "icon": "icon-summary",
           "children": [{
